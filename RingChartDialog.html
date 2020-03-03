@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interactive Ring Chart Settings</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"/>  -->
+
+    <!-- https://github.com/Simonwep/pickr -->
+    <link rel="stylesheet" href="./picker_style.css"/> <!-- 'nano' theme -->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.es5.min.js"></script>
+
+
+    <!-- Bootstrap -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+    <!-- Extensions Library (this will be hosted on a CDN eventually) -->
+    <script src="../../lib/tableau.extensions.1.latest.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <!-- Our extension's code -->
+    <style>
+      #settings {
+        width: auto;
+        padding: 20px 50px 80px 40px;
+        background: rgb(238, 238, 238);
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        /* border: rgb(196, 194, 194) 1px solid;*/
+        border-radius: 5px;
+        margin: 50px;
+        margin-top: 15px;
+
+      }
+      .setting {
+        height: 30px;
+        /* width: 300px; */
+        /* background: lightblue; */
+        /* margin: auto; 
+        text-align: center; */
+        display: flex;
+        /* flex-direct  ion: row; */
+        /* justify-items: baseline; */
+        align-items: center;
+      
+      }
+      input,
+      select {
+        /* align-self: flex-end; */
+        border: 0ch;
+        margin-left: 10px;
+        /* text-decoration: underline ; */
+        border-bottom: rgb(200, 200, 200) 1px solid;
+        width: 180px;
+        /* background: rgb(240, 240, 240); */
+        color: rgb(0, 47, 100);
+        font-weight: 600;
+        padding: 2px;
+      }
+      /* select{width: auto;} */
+      input:hover,
+      select:hover {
+        border-bottom: rgb(19, 141, 255) 2px solid;
+      }
+      label {
+        color: rgb(46, 46, 46);
+        font-weight: 300;
+        width: 100px;
+        text-align: right;
+      }
+      .swash {
+        width: 20px;
+        height: 20px;
+        margin-right: 2px;
+        border-radius: 2px;
+      }
+      .button {
+        background-color: #4caf50; /* Green */
+        border: none;
+        color: white;
+        padding: 5px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+      }
+      .submit {
+        background-color: #008cba;
+        color: white;
+        border: 2px solid #008cba;
+        border-radius: 5px;
+      }
+      .submit:hover {
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+      }
+      .title {
+        margin-left: 50px;
+        margin-top: 50px;
+      }
+      #colorPallets {
+        display: flex;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+     
+      <h4 class="title">Ring Chart Setting</h4>
+      <div style="margin-left: 14px" id="datasources"></div>
+      <div id="settings">
+        <div class="setting">
+          <label for="ringSize">Ring Size</label>
+          <input
+            type="number"
+            style="align-self: flex-end;"
+            id="ringSize"
+            name="ringSize"
+            value="15"
+          />
+        </div>
+        <div class="setting">
+          <label for="cornerRadius">Corner Radius</label>
+          <input
+            type="number"
+            id="cornerRadius"
+            name="cornerRadius"
+            value="0"
+          />
+        </div>
+        <div class="setting">
+          <label for="gap">Gap</label>
+          <input type="number" id="gap" name="gap" value="0.01" />
+        </div>
+        <div class="setting">
+          <label for="padding">Padding</label>
+          <input type="number" id="padding" name="padding" value="0" />
+        </div>
+        <div class="setting">
+          <label for="sheets">Slect a sheet</label>
+          <select id="sheets" name="sheets"> </select>
+        </div>
+    
+      <div class="setting">
+        <label for="colorPallets">Colors</label>
+        <div id="colorPallets" name = "colorPallets"></div>
+      </div>
+
+      
+      <div class="setting">
+        <button
+          id="closeButton"
+          class="button  submit"
+          style="margin-top: 70px;width: 100%;"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+    <script>
+    </script>
+        <script src="./RingChartDialog.js"></script>
+  </body>
+</html>
