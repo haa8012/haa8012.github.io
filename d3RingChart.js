@@ -15,9 +15,13 @@ const drawPie = (
   }
 
   let sel = '_' + selector.slice(1, 50),
-    radius = height / 2 - graphPadding,
-    f = d3.format('.1%'),
+    radius = width / 2 - graphPadding,
+    f = d3.format('.0%'),
     n = d3.format('.2s');
+
+  if (ringSize > radius / 2) {
+    ringSize = radius / 2;
+  }
 
   var arc = d3
     .arc()
@@ -51,7 +55,7 @@ const drawPie = (
       return z(data[i]);
     })
     .attr('d', arc);
-  //.attr('stroke-width', '1px')
+  // .attr('stroke-width', '0px');
   //.attr('stroke', 'white')
 
   arc
@@ -83,20 +87,45 @@ const drawPie = (
     //.attr("transform", "translate(" + ((width / 2)) + "," + ((height / 2)) + ")")
     .attr('x', 0)
     .attr('y', 0)
-    .attr('dy', -Math.min(width, height) * 0.15 + 'px')
+    .attr('dy', -Math.min(width, height) * 0.13 + 'px')
     .style('fill', 'grey') //'#c3c3c3')
     .style('font-size', Math.min(width, height) * 0.1 + 'px')
     .style('text-anchor', 'middle')
     //.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
     .text(labels[0]);
 
+  if (ringSize > radius / 2) {
+    // svg
+    //   .append('rect')
+    //   .attr('x', -radius * 0.5 + 'px')
+    //   .attr('y', -radius * 0.5 + 'px')
+    //   .attr('width', radius)
+    //   .attr('height', radius)
+    //   .style('fill', 'white')
+    //   .style('opacity', 0.5)
+    //   .style('rx', 10)
+    //   .style('ry', 10);
+    // svg
+    //   .append('circle')
+    //   // .attr('x', -radius * 0.5 + 'px')
+    //   // .attr('y', -radius * 0.5 + 'px')
+    //   .attr('cx', radius / 2)
+    //   .attr('cy', radius / 2)
+    //   .attr('r', radius / 2)
+    //   .style('fill', 'white')
+    //   .style('opacity', 0.5);
+  }
+
   svg
     .append('text')
     .attr('class', 'value_per' + sel)
     .attr('x', 0)
     .attr('y', 0)
-    .attr('dy', Math.min(width, height) * 0.0015 + 'em')
+    // .attr('dy', Math.min(width, height) * 0.0007 + 'em')
+    .attr('dy', Math.log(Math.min(width, height)) * 0.07 + 'em')
     .style('fill', z(data[0])) //'#00435B')
+    // .style('stroke-width', '1px')
+    // .style('stroke', 'white')
     .style('font-size', Math.min(width, height) * 0.2 + 'px')
     .style('text-anchor', 'middle')
     //.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -107,7 +136,8 @@ const drawPie = (
     .attr('class', 'value' + sel)
     .attr('x', 0)
     .attr('y', 0)
-    .attr('dy', Math.min(width, height) * 0.012 + 'em')
+    // .attr('dy', Math.min(width, height) * 0.01 + 'em')
+    .attr('dy', Math.log(Math.min(width, height)) * 0.4 + 'em')
     .style('fill', '#00435B')
     .style('font-size', Math.min(width, height) * 0.08 + 'px')
     .style('text-anchor', 'middle')

@@ -38,6 +38,7 @@
     // port where the parent extension is currently running, so this string doesn't have
     // to be updated if the extension is deployed to a new location.
     const popupUrl = `${window.location.origin}/RingChartDialog.html`;
+    // const popupUrl = `${window.location.origin}/samples/RingChart/haa8012.github.io/RingChartDialog.html`;
 
     /**
      * This is the API call that actually displays the popup extension to the user.  The
