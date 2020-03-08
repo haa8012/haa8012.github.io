@@ -41,7 +41,7 @@
 
         let sel = document.getElementById('sheets');
         sel.innerHTML = ops;
-
+        alert(backClr);
         if (ringSize) {
           $('#ringSize').val(ringSize);
           $('#cornerRadius').val(cornerRadius);
@@ -84,7 +84,7 @@
     );
 
     tableau.extensions.settings.set('colors', cols.join(','));
-    alert(backColor);
+
     tableau.extensions.settings.set('backClr', backColor);
 
     tableau.extensions.settings
