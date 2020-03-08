@@ -2,6 +2,7 @@
 (function() {
   let setParams = ['ringSize', 'cornerRadius', 'gap', 'padding'];
   let cols = [];
+  let backColor = 'white';
 
   function rgb2hex(rgb) {
     if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
@@ -28,7 +29,8 @@
           gap,
           padding,
           sheetName,
-          colors
+          colors,
+          backClr
         } = tableau.extensions.settings.getAll();
 
         const wss = tableau.extensions.dashboardContent.dashboard.worksheets;
@@ -61,13 +63,10 @@
             clrs[i] = e;
           });
           creatPallete(clrs);
-          // setTimeout(() => {
-          //   $('.swash').each(function(i) {
-          //     $(this).css('background-color', clrs[i]);
-          //   });
-          // }, 3000);
+          setBackground(backClr);
         } else {
           creatPallete(d3.schemeCategory10);
+          setBackground(backColor);
         }
 
         $('#closeButton').click(closeDialog);
@@ -85,6 +84,8 @@
     );
 
     tableau.extensions.settings.set('colors', cols.join(','));
+    alert(backColor);
+    tableau.extensions.settings.set('backClr', backColor);
 
     tableau.extensions.settings
       .saveAsync()
@@ -93,6 +94,33 @@
       })
       .catch(showErr);
   }
+
+  function setBackground(clr) {
+    // document.getElementById('background').style.backgroundColor = color;
+    // $('#background').css('background-color', color);
+    const backPicker = Pickr.create({
+      el: '.swash-back',
+      theme: 'nano',
+      default: clr, //document.querySelector('.swash-back').style.backgroundColor,
+      useAsButton: false,
+      padding: 5,
+      defaultRepresentation: 'HEX',
+      // swatches: null,
+      // silent: false,
+      components: {
+        preview: true,
+        hue: true,
+        interaction: { input: true, save: true }
+      }
+    });
+
+    backPicker.on('save', (color, instance) => {
+      backColor = color.toHEXA();
+
+      instance.hide();
+    });
+  }
+
   function creatPallete(colorList) {
     let cp = document.getElementById('colorPallets');
     let crs = colorList.toString().split(',');

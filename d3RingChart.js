@@ -4,6 +4,7 @@ const drawPie = (
   height,
   data,
   labels,
+  background,
   ringSize = 15,
   cornerRadius = 0,
   gap = 0.01,
@@ -13,11 +14,14 @@ const drawPie = (
   if (document.querySelector(selector)) {
     $(selector).empty();
   }
+  let min = Math.min(width, height);
 
   let sel = '_' + selector.slice(1, 50),
-    radius = width / 2 - graphPadding,
+    radius = min / 2 - graphPadding,
     f = d3.format('.0%'),
     n = d3.format('.2s');
+
+  let idxMax = data.indexOf(d3.max(data));
 
   if (ringSize > radius / 2) {
     ringSize = radius / 2;
@@ -29,7 +33,10 @@ const drawPie = (
     .outerRadius(radius)
     .cornerRadius(cornerRadius);
 
-  var pie = d3.pie().padAngle(gap);
+  var pie = d3
+    .pie()
+    .sort(d3.descending)
+    .padAngle(gap);
 
   var z = d3.scaleOrdinal(colorPallet);
   //var z = d3.scale.ordinal().domain(data)
@@ -40,6 +47,7 @@ const drawPie = (
     .append('svg')
     .attr('width', width)
     .attr('height', height)
+    .style('background', background)
     .attr('class', sel)
     .append('g')
     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
@@ -75,10 +83,10 @@ const drawPie = (
     .on('mouseout', function(d) {
       d3.select(this).style('stroke-width', 0);
       d3.select('text.value_per' + sel)
-        .style('fill', z(data[0]))
-        .text(f(data[0] / d3.sum(data)));
-      d3.select('text.value' + sel).text(n(data[0]));
-      d3.select('.label' + sel).text(labels[0]);
+        .style('fill', z(data[idxMax]))
+        .text(f(data[idxMax] / d3.sum(data)));
+      d3.select('text.value' + sel).text(n(data[idxMax]));
+      d3.select('.label' + sel).text(labels[idxMax]);
     });
 
   svg
@@ -92,7 +100,7 @@ const drawPie = (
     .style('font-size', Math.min(width, height) * 0.1 + 'px')
     .style('text-anchor', 'middle')
     //.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    .text(labels[0]);
+    .text(labels[idxMax]);
 
   if (ringSize > radius / 2) {
     // svg
@@ -123,13 +131,13 @@ const drawPie = (
     .attr('y', 0)
     // .attr('dy', Math.min(width, height) * 0.0007 + 'em')
     .attr('dy', Math.log(Math.min(width, height)) * 0.07 + 'em')
-    .style('fill', z(data[0])) //'#00435B')
+    .style('fill', z(data[idxMax])) //'#00435B')
     // .style('stroke-width', '1px')
     // .style('stroke', 'white')
     .style('font-size', Math.min(width, height) * 0.2 + 'px')
     .style('text-anchor', 'middle')
     //.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    .text(f(data[0] / d3.sum(data)));
+    .text(f(data[idxMax] / d3.sum(data)));
 
   svg
     .append('text')
@@ -142,7 +150,7 @@ const drawPie = (
     .style('font-size', Math.min(width, height) * 0.08 + 'px')
     .style('text-anchor', 'middle')
     //.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    .text(n(data[0]));
+    .text(n(data[idxMax]));
 
   // //if the legend flag is true.
   // if (l) {

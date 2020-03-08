@@ -77,7 +77,7 @@
         width: 100px;
         text-align: right;
       }
-      .swash {
+      .swash , .swash-back{
         width: 20px;
         height: 20px;
         margin-right: 2px;
@@ -115,6 +115,7 @@
         display: flex;
         margin-left: 10px;
       }
+      
     </style>
   </head>
   <body>
@@ -159,7 +160,10 @@
         <label for="colorPallets">Colors</label>
         <div id="colorPallets" name = "colorPallets"></div>
       </div>
-
+      <div class="setting">
+        <label for="sheets">Background</label>
+        <div id="background" class= 'swash-back' name="background"> </div>
+      </div>
       
       <div class="setting">
         <button
