@@ -28,8 +28,8 @@
   });
 
   function configure() {
-    // const popupUrl = `${window.location.origin}/RingChartDialog.html`;
-    const popupUrl = `${window.location.origin}/samples/RingChart/haa8012.github.io/RingChartDialog.html`;
+    const popupUrl = `${window.location.origin}/RingChartDialog.html`;
+    // const popupUrl = `${window.location.origin}/samples/RingChart/haa8012.github.io/RingChartDialog.html`;
 
     tableau.extensions.ui
       .displayDialogAsync(popupUrl, '', {
